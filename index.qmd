@@ -1,6 +1,7 @@
 ---
 title: "Testing, testing..."
 format: html
+toc: true
 ---
 
 ```{r}
@@ -24,7 +25,7 @@ source("prompt.R")
 # Approach
 
 - Create a folder with question, sample answers (based on real student work, but not replicas), rubric, and a detailed rubric.
-- Add content for system prompt. **(Q: Not sure if this is the right way to go about it?)**
+- Add (some, experimental) content for system prompt.
 - Give feedback!
 
 # Modeling
@@ -171,11 +172,25 @@ prompt(
 
 # Take-aways
 
-## The good
+## The process
 
-- “Spell out your reasoning” results in feedback that is too long.
+- Lots of fiddling with the rubric file, though unclear / hard to measure to what end.
 
 - Separating out to `rubric` and `rubric_detailed` helps hide the answer while giving constructive feedback.
+
+## The good
+
+- “Spell out your reasoning” results in feedback that is too long, but taking that out and adding limits helps.
+
+- It sort of works!
+
+## The bad
+
+- **The most concerning:** The feedback tends to catch errors but not the “good” and seems to reiterate the rubric item whether it’s met or not, potentially causing the student (who is already prone to this) to think “there’s no winning here”.
+    - Somewhat on par with an inexperienced TA who is not seeing the bigger picture but looking at matching every detail to the rubric and pointing out any discrepancies whether they matter or not.
+
+- **The inevitable:** Inconsistency in feedback from one try to another.
+    - Is it possible to instill confidence in students when the feedback changes at each try on the same answer? Not substantially, but potentially enough for an inexperienced student...
 
 - Hallucinations happen, somewhat consistently, e.g.,
     
@@ -186,14 +201,6 @@ prompt(
 - Text that would cause more problems gets injected into feedback, e.g.,
     
     > aligning with rubric expectations
-
-## The bad
-
-- **The most concerning:** The feedback tends to catch errors but not the “good” and seems to reiterate the rubric item whether it’s met or not, potentially causing the student (who is already prone to this) to think “there’s no winning here”.
-    - Somewhat on par with an inexperienced TA who is not seeing the bigger picture but looking at matching every detail to the rubric and pointing out any discrepancies whether they matter or not.
-
-- **The inevitable:** Inconsistency in feedback from one try to another.
-    - Is it possible to instill confidence in students when the feedback changes at each try on the same answer? Not substantially, but potentially enough for an inexperienced student...
 
 ## The questions
 
