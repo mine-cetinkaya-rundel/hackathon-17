@@ -1,0 +1,175 @@
+---
+title: "Testing, testing..."
+format: gfm
+---
+
+```{r}
+#| message: false
+source("prompt.R")
+```
+
+# Motivation
+
+1. An ever increasing number of students use AI tools as their first step, before thinking about how to approach a task.
+
+2. "Don't use AI" is not productive, or perhaps counter-productive. But...
+  - How can AI support student learning instead of help them take shortcuts in their learning?
+  - Can AI help TAs redistribute their time towards more higher-value (and more enjoyable!) touch points with students and away from repetitive (and error-prone) tasks much of which go unread?
+
+3. Self-care: Neither the TAs not I want to provide detailed feedback to answers generated solely with AI tools.
+
+4. The work is already done-ish for the rubrics (the most painful part, maybe).
+
+# Approach
+
+- Create a folder with question, sample answers (based on real student work, but not replicas), rubric, and a detailed rubric.
+- Add content for system prompt. **(Q: Not sure if this is the right way to go about it?)**
+- Give feedback!
+
+# Modeling
+
+Load information from text files:
+
+```{r}
+question <- read_lines("questions/model-birth-simple-linear/model-births-simple-linear-Q.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+
+rubric <- read_lines("questions/model-birth-simple-linear/model-births-simple-linear-R.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+
+rubric_detailed <- read_lines("questions/model-birth-simple-linear/model-births-simple-linear-RD.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+
+bad_answer <- read_lines("questions/model-birth-simple-linear/model-births-simple-linear-sample-answer-bad.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+
+good_answer <- read_lines("questions/model-birth-simple-linear/model-births-simple-linear-sample-answer-bad.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+```
+
+Evaluate a **bad** answer:
+
+```{r}
+#| results: asis
+prompt(
+  question = question, 
+  rubric = rubric,
+  answer = bad_answer
+)
+```
+
+Evaluate a **good** answer:
+
+```{r}
+prompt(
+  question = question, 
+  rubric = rubric,
+  answer = good_answer
+)
+```
+
+Now evaluate a **good** answer **again:**
+
+```{r}
+prompt(
+  question = question, 
+  rubric = rubric,
+  answer = good_answer
+)
+```
+
+::: callout-note
+
+:::
+
+# Tidying
+
+Load information from text files:
+
+```{r}
+question <- read_lines("questions/tidy-country-inflation-pivot-longer/tidy-country-inflation-pivot-longer-Q.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+
+rubric <- read_lines("questions/tidy-country-inflation-pivot-longer/tidy-country-inflation-pivot-longer-R.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+
+rubric_detailed <- read_lines("questions/tidy-country-inflation-pivot-longer/tidy-country-inflation-pivot-longer-RD.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+
+bad_answer <- read_lines("questions/tidy-country-inflation-pivot-longer/tidy-country-inflation-pivot-longer-sample-answer-bad.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+
+good_answer <- read_lines("questions/tidy-country-inflation-pivot-longer/tidy-country-inflation-pivot-longer-sample-answer-good.qmd") |>
+  glue_collapse() |>
+  str_remove("---.*?---")
+```
+
+Evaluate a **bad** answer:
+
+```{r}
+prompt(
+  question = question, 
+  rubric = rubric,
+  answer = bad_answer
+)
+```
+
+Now, evaluate a **bad** answer again:
+
+```{r}
+prompt(
+  question = question, 
+  rubric = rubric,
+  answer = bad_answer
+)
+```
+
+Evaluate a **good** answer:
+
+```{r}
+prompt(
+  question = question, 
+  rubric = rubric,
+  answer = good_answer
+)
+```
+
+# Take-aways
+
+## The good
+
+- “Spell out your reasoning” results in feedback that is too long.
+- Separating out to `rubric` and `rubric_detailed` helps hide the answer while giving constructive feedback.
+- Hallucinations happen, somewhat consistently, e.g.,
+    
+    > The code uses the base pipe (`|>`) and includes necessary spaces, but it lacks indentation, which can be improved for readability.
+    
+    even when the code is properly indented.
+    
+- Text that would cause more problems gets injected into feedback, e.g.,
+    
+    > aligning with rubric expectations
+
+## The bad
+
+- **The most concerning:** The feedback tends to catch errors but not the “good” and seems to reiterate the rubric item whether it’s met or not, potentially causing the student (who is already prone to this) to think “there’s no winning here”.
+    - Somewhat on par with an inexperienced TA who is not seeing the bigger picture but looking at matching every detail to the rubric and pointing out any discrepancies whether they matter or not.
+
+## The questions
+
+- How to compare models not just based on repetition and vibes?
+
+- Is what I’m doing in the system prompt ok?
+
+- What's with the Quarto error? (demo) And why is it slower in a Quarto document?
+
+- And obviously many more...
