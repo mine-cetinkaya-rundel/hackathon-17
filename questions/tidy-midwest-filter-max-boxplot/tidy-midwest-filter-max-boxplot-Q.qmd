@@ -1,0 +1,35 @@
+---
+title: "`midwest` filter boxplot values"
+subtitle: Question
+---
+
+```{r}
+#| label: load-packages
+library(tidyverse)
+```
+
+Back to the Midwest!
+
+In this part, you will revisit and build on some of your findings from Lab 1, where you explored the `midwest` data frame. Remember that this data frame is bundled with the `ggplot2` package and is automatically loaded when you load the `tidyverse` package. As a refresher, the data contains demographic characteristics of counties in the Midwest region of the United States. You can read the documentation for the data set, including variable definitions, by typing `?midwest` in the Console or searching for midwest in the Help pane.
+
+Return to the following box plot of population densities where you were asked to identify at least one outlier, created by running this code chunk below: 
+
+```{r}
+#| label: popdensity-boxplot
+#| fig-width: 5
+#| fig-height: 3
+ggplot(midwest, aes(x = popdensity)) +
+  geom_boxplot() +
+  labs(
+    title = "Population densities of midwest counties",
+    x = "Population density"
+  )
+```
+
+In this question, we want you to revisit this box plot and identify the counties described in each section.
+
+a. The counties with a population density higher than 25,000. Your code must use the `filter()` function.
+
+b. The county with the highest population density. Your code must use the `max()` function.
+
+Answer using a single data wrangling pipeline for each part. Your response should be a data frame with five columns: county name, state name, population density, total population, and area, in this order. If your response has multiple rows, the data frame should be arranged in descending order of population density.

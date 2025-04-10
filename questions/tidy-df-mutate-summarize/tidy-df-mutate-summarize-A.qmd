@@ -1,0 +1,32 @@
+---
+title: "tidying `df` summarizing and mutating with group_by"
+subtitle: Suggested answer
+---
+
+a\. Groups are defined as unique combinations of `var_2` and `var_3`. The resulting data frame has three columns (`var_2`, `var_3`, and `mean_var_1`) and the rows correspond to unique combinations of `var_2` and `var_3` values. For each of these unique combinations, the mean of the `var_1` values is reported in the newly created column. The message says the resulting data are grouped by `var_2`, the first grouping variable.
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1))
+```
+
+b\. Same as in part (a), but the `.groups` argument says the summarize step should drop the grouping structure, and therefore the message is no longer printed and the data frame is not grouped.
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1), .groups = "drop")
+```
+
+c\. Both pipelines calculate the mean value of `var_1` for the unique combinations of values of `var_2` and `var_3`. The first pipeline with `summarize()` results in a data frame with four rows, which is equal to the number of unique combinations of `var_2` and `var_3` while the second pipeline (with `mutate()`) keeps all rows of the input data frame. Additionally, the first pipeline with `summarize()` reduces the number of columns of the data frame to 3, keeping only the grouping variables and the newly calculated `mean_var_1` variable, while the pipeline with `mutate()` keeps all columns of the input data frame.
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1), .groups = "drop")
+
+df |>
+  group_by(var_2, var_3) |>
+  mutate(mean_var_1 = mean(var_1))
+```

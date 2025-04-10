@@ -1,0 +1,22 @@
+---
+title: "`midwest` filter boxplot values"
+subtitle: Rubric
+---
+
+-   Part (a) - Code uses `filter()` with the correct logical condition.
+
+-   Part (a) - Output has five columns in the correct order.
+
+-   Part (a) - Output has nine rows.
+
+-   Part (a) - Output is arranged in the correct order of population density.
+
+-   Part (b) - Code uses `filter()` with the correct logical condition.
+
+-   Part (b) - Output has five columns in the correct order.
+
+-   Part (b) - Output has one row, with the correct county. 
+
+-   Code uses a single pipeline for each part.
+
+-   Code style and readability: Line breaks after each |>, proper indentation, spaces around = signs if they are present, and spaces after commas if they are present.

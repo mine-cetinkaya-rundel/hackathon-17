@@ -1,0 +1,31 @@
+---
+title: "`midwest` filter boxplot values"
+subtitle: Suggested answer
+---
+
+```{r}
+#| label: load-packages
+library(tidyverse)
+```
+
+
+a\. There are nine counties with population density greater than 25,000 people per unit area.
+
+```{r}
+#| label: high-pop-density
+
+midwest |>
+  filter(popdensity > 25000) |>
+  arrange(desc(popdensity)) |>
+  select(county, state, popdensity, poptotal, area)
+```
+
+b\. The county with the highest population density is Cook County, IL.
+
+```{r}
+#| label: highest-pop-density
+
+midwest |>
+  filter(popdensity == max(popdensity)) |>
+  select(county, state, popdensity, poptotal, area)
+```

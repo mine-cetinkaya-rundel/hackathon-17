@@ -1,0 +1,26 @@
+---
+title: "`midwest` filter boxplot values"
+subtitle: Detailed Rubric
+---
+
+-   Part (a) - Code uses `filter()` with `popdensity > 25000` as the logical condition.
+
+-   Part (a) - Output has five columns in the correct order, county, state, popdensity, poptotal, area.
+
+-   Part (a) - Output has nine rows.
+
+    -   Note: Narrative stating the number or names of counties is optional.
+
+-   Part (a) - Output is arranged in descending order of population density.
+
+-   Part (b) - Code uses `filter()` with `popdensity == max(popdensity)` as the logical condition.
+
+-   Part (b) - Output has five columns in the correct order, county, state, popdensity, poptotal, area.
+
+-   Part (b) - Output has one row: Cook County.
+
+    -   Note: Narrative stating this is optional.
+
+-   Code uses a single pipeline for each part.
+
+-   Code style and readability: Line breaks after each |>, proper indentation, spaces around = signs if they are present, and spaces after commas if they are present.

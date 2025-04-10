@@ -1,0 +1,14 @@
+---
+title: "tidying `df` summarizing and mutating with group_by"
+subtitle: Rubric
+---
+
+-   Part (a) - Narrative correctly describes what the code chunk does, what the pipeline does, and comments on what the message says.
+
+-   Part (b) - Narrative correctly describes what the code chunk does, what the pipeline does, especially mentioning what the `.groups` argument does, and comments on how the output is different from the one in part (a). 
+
+-   Part (c) - Narrative correctly describes what each pipeline does, and how the outputs of the two pipelines are different. 
+
+-   Code output is shown for all parts.
+
+-   Code style and readability: Line breaks after each |>, proper indentation, spaces around = signs if they are present, and spaces after commas if they are present.

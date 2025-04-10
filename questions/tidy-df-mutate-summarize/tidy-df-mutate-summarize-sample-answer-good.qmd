@@ -1,0 +1,36 @@
+---
+title: "tidying `df` summarizing and mutating with group_by"
+subtitle: Sample answer - good
+---
+
+a\. This code chunk groups by the unique values of var_2, then further groups by var_3. For each of these combinations of var_2 and var_3, the mean of var_1 is calculated. 
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1))
+```
+
+b\. This code chunk is the same as part a, but the .groups argument in the summarize step should drop the grouping structure and the dataframe isn't grouped after this step. Because of this dropped grouping, the grouping structure and message isn't there, which part a has. 
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1), .groups = "drop")
+```
+
+c\.
+
+The first pipeline in this code chunk groups by the unique values of var_2, then further groups by var_3, then the mean of var_1 is calculated for these combinations of var_2 and var_3. After this is calculated, the .groups drops the grouping structure and the dataframe isn't grouped after this step. 
+
+The second pipeline in this code chunk groups by the unique values of var_2, then further groups by var_3, and the mean of var_1 is calculated for these combinations of var_2 and var_3. The mean of var_1 is calculated using mutate instead of summarize, which adds a column to the original dataframe with this mean value, rather than creating a new modified dataframe which summarize does. 
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1), .groups = "drop")
+
+df |>
+  group_by(var_2, var_3) |>
+  mutate(mean_var_1 = mean(var_1))
+```

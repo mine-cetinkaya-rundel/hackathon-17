@@ -1,0 +1,36 @@
+---
+title: "tidying `df` summarizing and mutating with group_by"
+subtitle: Sample answer - bad
+---
+
+a\. This code chunk groups by var_2 and 3. Then the mean is calculated. 
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1))
+```
+
+b\. This code chunk is the same as part a, but no grouping. 
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1), .groups = "drop")
+```
+
+c\.
+
+The first pipeline groups by var 2 and 3 and calculates the mean with no grouping.  
+
+The second pipeline groups by var 2 and 3 and calculates the mean. This is using mutate, which changes the dataframe. 
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1), .groups = "drop")
+
+df |>
+  group_by(var_2, var_3) |>
+  mutate(mean_var_1 = mean(var_1))
+```
